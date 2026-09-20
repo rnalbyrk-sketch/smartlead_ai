@@ -39,10 +39,6 @@ def yeni_lead():
     isim = str(veri.get("isim") or "").strip()
     telefon = str(veri.get("telefon") or "").strip()
     mesaj = str(veri.get("mesaj") or "").strip()
-@main_bp.route("/admin/logout", methods=["POST"])
-def admin_cikis():
-    session.clear()
-    return redirect(url_for("main.admin_giris"))
 
     if not isim or not telefon:
         return jsonify({
@@ -85,3 +81,8 @@ def admin_giris():
         return render_template("login.html", hata="Kullanıcı adı veya şifre hatalı.")
 
     return render_template("login.html")
+
+@main_bp.route("/admin/logout", methods=["POST"])
+def admin_cikis():
+    session.clear()
+    return redirect(url_for("main.admin_giris"))
