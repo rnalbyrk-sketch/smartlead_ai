@@ -18,8 +18,9 @@ class Config:
     """
 
     CORS_ORIGINS = os.environ.get(
-        "CORS_ORIGINS", "http://localhost:5000"
-    ).split(",")
+    "CORS_ORIGINS",
+    "http://localhost:5000,https://rnalbyrk.wixsite.com"
+).split(",")
 
 
 class DevelopmentConfig(Config):
