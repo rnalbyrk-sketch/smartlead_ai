@@ -25,13 +25,13 @@ def sohbet():
             "hata": "Mesaj boş olamaz."
         }), 400
 
-    try:
-    yanit = ai_service.yanit_uret(mesaj)
-except AIServiceError:
-    return jsonify({
-        "basari": False,
-        "hata": "Yapay zekâ servisine şu anda ulaşılamıyor. Lütfen tekrar deneyin."
-    }), 503
+       try:
+        yanit = ai_service.yanit_uret(mesaj)
+    except AIServiceError:
+        return jsonify({
+            "basari": False,
+            "hata": "Yapay zekâ servisine şu anda ulaşılamıyor. Lütfen tekrar deneyin."
+        }), 503
 
     return jsonify({
         "basari": True,
