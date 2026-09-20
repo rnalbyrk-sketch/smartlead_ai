@@ -2,7 +2,7 @@ import os
 import hmac
 from flask import Blueprint, jsonify, request, render_template, session, redirect, url_for
 from app.database import tum_leadler, lead_ekle
-from app.services.ai_service import ai_service
+from app.services.ai_service import ai_service, AIServiceError
 main_bp = Blueprint("main", __name__)
 
 
@@ -25,7 +25,13 @@ def sohbet():
             "hata": "Mesaj boş olamaz."
         }), 400
 
+    try:
     yanit = ai_service.yanit_uret(mesaj)
+except AIServiceError:
+    return jsonify({
+        "basari": False,
+        "hata": "Yapay zekâ servisine şu anda ulaşılamıyor. Lütfen tekrar deneyin."
+    }), 503
 
     return jsonify({
         "basari": True,
