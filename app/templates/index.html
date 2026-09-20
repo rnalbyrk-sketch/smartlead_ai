@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SESİZ | Akıllı Satış Asistanı</title>
+</head>
+<body>
+    <h1>SESİZ</h1>
+    <p>Akıllı Satış Asistanımıza hoş geldiniz.</p>
+
+    <h2>Asistana Sor</h2>
+    <input id="mesaj" type="text" placeholder="Sorunuzu yazın">
+    <button onclick="sohbetEt()">Gönder</button>
+    <p id="yanit"></p>
+
+    <h2>İletişim Formu</h2>
+    <input id="isim" type="text" placeholder="Adınız">
+    <input id="telefon" type="tel" placeholder="Telefon numaranız">
+    <textarea id="talep" placeholder="Mesajınız"></textarea>
+    <button onclick="talepGonder()">Talep Gönder</button>
+    <p id="sonuc"></p>
+
+    <script>
+        async function sohbetEt() {
+            const mesaj = document.getElementById("mesaj").value;
+
+            const cevap = await fetch("/api/sohbet", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({mesaj: mesaj})
+            });
+
+            const veri = await cevap.json();
+            document.getElementById("yanit").textContent =
+                veri.yanit || veri.hata || "Bir hata oluştu.";
+        }
+
+        async function talepGonder() {
+            const isim = document.getElementById("isim").value;
+            const telefon = document.getElementById("telefon").value;
+            const mesaj = document.getElementById("talep").value;
+
+            const cevap = await fetch("/api/leads", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({
+                    isim: isim,
+                    telefon: telefon,
+                    mesaj: mesaj
+                })
+            });
+
+            const veri = await cevap.json();
+            document.getElementById("sonuc").textContent =
+                veri.mesaj || veri.hata || "Bir hata oluştu.";
+        }
+    </script>
+</body>
+</html>

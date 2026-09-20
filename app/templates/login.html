@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SESİZ | Yönetici Girişi</title>
+</head>
+<body>
+    <h1>SESİZ Yönetici Girişi</h1>
+
+    <form method="POST">
+        <label for="kullanici">Kullanıcı adı:</label>
+        <input
+            type="text"
+            id="kullanici"
+            name="kullanici"
+            autocomplete="username"
+            required
+        >
+
+        <br><br>
+
+        <label for="sifre">Şifre:</label>
+        <input
+            type="password"
+            id="sifre"
+            name="sifre"
+            autocomplete="current-password"
+            required
+        >
+
+        <br><br>
+
+        <button type="submit">Giriş Yap</button>
+    </form>
+
+    {% if hata %}
+        <p style="color: red;">{{ hata }}</p>
+    {% endif %}
+</body>
+</html>

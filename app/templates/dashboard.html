@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SESİZ Yönetim Paneli</title>
+</head>
+<body>
+<form action="{{ url_for('main.admin_cikis') }}" method="POST">
+    <button type="submit">Çıkış Yap</button>
+</form>
+    <h1>SESİZ Yönetim Paneli</h1>
+    <p>Akıllı Satış Asistanı yönetim ekranına hoş geldiniz.</p>
+
+    <h2>Müşteri Talepleri</h2>
+    {% if leadler %}
+    <table border="1" cellpadding="8">
+        <tr>
+            <th>Ad Soyad</th>
+            <th>Telefon</th>
+            <th>Mesaj</th>
+            <th>Tarih</th>
+        </tr>
+
+        {% for lead in leadler %}
+        <tr>
+            <td>{{ lead.isim }}</td>
+            <td>{{ lead.telefon }}</td>
+            <td>{{ lead.mesaj }}</td>
+            <td>{{ lead.tarih }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p>Henüz müşteri talebi bulunmuyor.</p>
+{% endif %}
+</body>
+</html>
