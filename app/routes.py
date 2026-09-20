@@ -25,7 +25,7 @@ def sohbet():
             "hata": "Mesaj boş olamaz."
         }), 400
 
-       try:
+    try:
         yanit = ai_service.yanit_uret(mesaj)
     except AIServiceError:
         return jsonify({
