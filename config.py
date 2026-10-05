@@ -17,10 +17,14 @@ class Config:
     Bilmediğin özellikleri varmış gibi anlatma.
     """
 
-    CORS_ORIGINS = os.environ.get(
-    "CORS_ORIGINS",
-    "http://localhost:5000,https://rnalbyrk.wixstudio.com/my-site-1"
-).split(",")
+    CORS_ORIGINS = [
+    o.strip() for o in os.environ.get(
+        "CORS_ORIGINS",
+        "http://localhost:5000,"
+        "https://rnalbyrk.wixstudio.com,"
+        "https://rnalbyrk.wixsite.com"
+    ).split(",")
+]
 
 
 class DevelopmentConfig(Config):
