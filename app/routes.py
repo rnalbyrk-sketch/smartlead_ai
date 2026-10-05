@@ -92,3 +92,30 @@ def admin_giris():
 def admin_cikis():
     session.clear()
     return redirect(url_for("main.admin_giris"))
+
+@main_bp.route("/api/lead_listesi", methods=["GET"])
+def lead_listesi():
+    # 1. Güvenlik: Sadece doğru API anahtarına sahip olanlar veriyi çekebilir
+    api_key = request.headers.get("X-API-KEY")
+    gizli_anahtar = os.environ.get("WIX_API_KEY", "benim-gizli-sifrem-123") 
+    
+    if not api_key or not hmac.compare_digest(api_key, gizli_anahtar):
+        return jsonify({
+            "basari": False, 
+            "hata": "Yetkisiz erişim"
+        }), 401
+
+    # 2. Verileri çekip JSON formatında gönderiyoruz
+    try:
+        leadler = tum_leadler()
+        # Not: tum_leadler() fonksiyonunun sözlük (dict) listesi döndürdüğünden emin olun. 
+        # Örn: [{"isim": "Ali", "telefon": "555", "mesaj": "..."}]
+        return jsonify({
+            "basari": True,
+            "leadler": leadler
+        }), 200
+    except Exception as e:
+        return jsonify({
+            "basari": False,
+            "hata": str(e)
+        }), 500
