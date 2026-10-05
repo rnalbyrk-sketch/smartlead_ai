@@ -10,7 +10,7 @@ class Config:
     GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "")
     AI_PROVIDER = os.environ.get("AI_PROVIDER", "demo")
 
-    BUSINESS_CONTEXT = BUSINESS_CONTEXT = """
+    BUSINESS_CONTEXT ="""
 SESİZ, görme engelli ve az gören bireylerin dijital dünyada bilgiye,
 ürünlere ve hizmetlere daha erişilebilir ve bağımsız biçimde ulaşmasını
 desteklemek amacıyla geliştirilen yapay zekâ destekli dijital satış ve
